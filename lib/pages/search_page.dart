@@ -21,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   initState() {
-    _dio = Dio();
+    _dio = Dio()..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
     super.initState();
   }
 
@@ -43,6 +43,7 @@ class _SearchPageState extends State<SearchPage> {
         _searchStatus = SearchStatus.success;
       });
     } catch (error) {
+      debugPrint(error.toString());
       setState(() {
         _searchStatus = SearchStatus.failure;
       });
